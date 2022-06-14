@@ -1,2 +1,2 @@
 # Multiple analog forecasting
- A load forecasting method based on correlation and regression.
+ A load forecasting method based on correlation and regression models.
