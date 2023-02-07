@@ -6,13 +6,15 @@ output: html_notebook
 ```{r}
 library(forecast)
 
-temp <- read.csv(file='C:/Users/user/Desktop/autots/data5min.csv') 
+temp <- read.csv(file='/home/uriel/GIT/analog/data5min.csv') 
 
 temp <- temp[ c(4) ]
 
 ts_data <- msts(temp, seasonal.periods=c(288,2016))
 
-plot(ts_data)
+# queadprog fracdiff lmtest quantmod
+# urca RcppArmadillo TTR curl
+
 ```
 
 ```{r}
@@ -22,59 +24,68 @@ colnames(df) = columns
 df_x = data.frame(matrix(nrow = 0, ncol = length(columns))) 
 colnames(df_x) = columns
 
-max_p = 5
-max_q = 30
-n_p = 30
+max_p   = 5
+max_q   = 30
+max_P   = 5
+max_Q   = 30
+start_p = 1
+start_q = 1
+start_P = 1
+start_Q = 1
+
+n_p   = 30
 for (x in 1:26496){
   maxi      <- 30
   startTime <- Sys.time()
   ##https://pkg.robjhyndman.com/forecast/reference/auto.arima.html
-  # [ ] FALTA AGREGAR EL 288
-  fit    <- auto.arima(
-     ts_data[14688 + x : 49247 + x],
-     d              = NA, # [ ] REVISAR ESTO
-     D              = NA, # [ ] REVISAR ESTO
-     max.p          = max_p,
-     max.q          = max_q,
-     max.P          = max_p,
-     max.Q          = max_q,
-     max.order      = maxi,
-     max.d          = 2,
-     max.D          = 2,
-     start.p        = 1,
-     start.q        = 1,
-     start.P        = 1,
-     start.Q        = 1,
-     stationary     = FALSE,
-     seasonal       = TRUE,
-     ic             = c("aicc", "aic", "bic"),
-     stepwise      = FALSE,
-     nmodels       = 94,
-     trace         = TRUE,
-     #approximation = (length(x) > 150 | frequency(x) > 12),
-     method        = NULL,
-     truncate      = NULL,
-     xreg          = NULL,
-     test          = c("kpss", "adf", "pp"),
-     test.args     = list(),
-     seasonal.test = c("seas", "ocsb", "hegy", "ch"),
-     seasonal.test.args = list(),
-     allowdrift    = TRUE,
-     allowmean     = TRUE,
-     lambda        = NULL,
-     biasadj       = FALSE,
-     parallel      = FALSE,
-     #num.cores     = 8
-  )
+  if ( x %% n_p == 0 | x == 1 ){
+    fit    <- auto.arima(
+      # 37726 14688:49246
+       ts_data[14688 + x : 49246 + x],
+       d              = NA, 
+       D              = NA, 
+       max.p          = max_p,
+       max.q          = max_q,
+       max.P          = max_P,
+       max.Q          = max_Q,
+       max.order      = maxi,
+       max.d          = 2,
+       max.D          = 2,
+       start.p        = start_p,
+       start.q        = start_q,
+       start.P        = start_P,
+       start.Q        = start_Q,
+       stationary     = FALSE,
+       seasonal       = TRUE,
+       ic             = c("aicc", "aic", "bic"),
+       stepwise      = FALSE,
+       nmodels       = 94,
+       trace         = FALSE,
+       #approximation = (length(x) > 150 | frequency(x) > 12),
+       method        = NULL,
+       truncate      = NULL,
+       xreg          = NULL,
+       test          = c("kpss", "adf", "pp"),
+       test.args     = list(),
+       seasonal.test = c("seas", "ocsb", "hegy", "ch"),
+       seasonal.test.args = list(),
+       allowdrift    = TRUE,
+       allowmean     = TRUE,
+       lambda        = NULL,
+       biasadj       = FALSE,
+       parallel      = TRUE,
+       num.cores     = 8
+    )
+  }
   forecast_results = unlist(forecast(fit,h=n_p)[c("mean")])
   endTime <- Sys.time()
   timeTaken <- endTime - startTime
   df[nrow(df) + 1,] = c(49247 + x, forecast_results[1], as.numeric(timeTaken))
-  write.table(tail(df, n =1), 'results/data/ARIMA.csv', append = TRUE, col.names = FALSE, row.names = F, sep = ",")
+  write.table(tail(df, n =1), '/home/uriel/GIT/analog/results/data/ARIMA.csv', append = TRUE, col.names = FALSE, row.names = F, sep = ",")
   if (x %% n_p == 0){
     for (i in 1:length(forecast_results)){
       df_x[nrow(df) + 1,] = c(49247 + x, forecast_results[i], as.numeric(timeTaken))
-      write.table(tail(df_x, n =1), 'results/data/ARIMAx.csv', append = TRUE, col.names = FALSE, row.names = F, sep = ",")
+      write.table(tail(df_x, n =1), '/home/uriel/GIT/analog/results/data/ARIMAx.csv', append = TRUE, col.names = FALSE, row.names = F, sep = ",")
     }
   }
 }
