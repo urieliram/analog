@@ -1,5 +1,6 @@
 data/
 Figure/*
+results/imgs/*
 .Rhistory
 
 # Byte-compiled / optimized / DLL files
