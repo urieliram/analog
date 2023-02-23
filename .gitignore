@@ -2,6 +2,7 @@ data/
 Figure/*
 results/imgs/*
 .Rhistory
+*.mp3
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
