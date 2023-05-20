@@ -1,7 +1,9 @@
 # Multiple analog forecasting
 ## A load forecasting method based on correlation and regression models.
 
-The code of the models proposed are in [analogTS.ipynb](analogTS.ipynb). From there, the the function `analogTS` is highlighted:
+The code of the models proposed are in [analogTS.ipynb](analogTS.ipynb). The results can be found on [results.ipynb](results.ipynb). The notebooks for the benchmarks are compiled in the folder [models/](models/).
+
+From the [analogTS.ipynb](analogTS.ipynb) file, the function `analogTS` is highlighted:
 
 ```python
 def analogTS(serie, vsele, k = 10, tol = 0.8, typedist = 'pearson', typereg = 'OLSstep', verbose = False, 
