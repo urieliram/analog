@@ -1,7 +1,7 @@
 # Multiple analog forecasting
 ## A load forecasting method based on correlation and regression models.
 
-The code of the models proposed are in [analogTS.ipynb](analogTS.ipynb). The results can be found on [results.ipynb](results.ipynb). The notebooks for the benchmarks are compiled in the folder [models/](models/).
+The code of the models proposed are in [analogTS.ipynb](analogTS.ipynb). The results can be found on [results.ipynb](results.ipynb). The notebooks for the benchmarks are compiled in the folder [models/](models/). The data file [data5min.csv](data5min.csv) contains electricity demand data recorded at intervals of 5 minutes.
 
 From the [analogTS.ipynb](analogTS.ipynb) file, the function `analogTS` is highlighted:
 
