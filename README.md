@@ -1,5 +1,7 @@
 # Multiple analog forecasting
 ## A load forecasting method based on correlation and regression models.
+[Research paper](https://latamt.ieeer9.org/index.php/transactions/article/view/7939)
+https://latamt.ieeer9.org/index.php/transactions/article/view/7939
 
 The code of the models proposed are in [analogTS.ipynb](analogTS.ipynb). The results can be found on [results.ipynb](results.ipynb). The notebooks for the benchmarks are compiled in the folder [models/](models/). The data file [data5min.csv](data5min.csv) contains electricity demand data recorded at intervals of 5 minutes.
 
