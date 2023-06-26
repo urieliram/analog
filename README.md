@@ -1,5 +1,5 @@
-# Multiple analog forecasting
-## A load forecasting method based on correlation and regression models.
+# Analogue and Moving Average Forecasting
+## Fast and Efficient Very Short-Term Load Forecasting Using Analogue and Moving Average Tools
 [Research paper](https://latamt.ieeer9.org/index.php/transactions/article/view/7939)
 https://latamt.ieeer9.org/index.php/transactions/article/view/7939
 
